@@ -23,14 +23,14 @@ jobs:
       uses: docker/login-action@v2
       with:
         registry: https://truenorth.azurecr.io/
-        username: ${{ secrets.AzureAppService_ContainerUsername_7ee5ed7e8dc64ed2902afe19ad7eb73f }}
-        password: ${{ secrets.AzureAppService_ContainerPassword_7a08687108c144cb8ca837dc5fe6eb7c }}
+        username: ${{ secrets.AzureAppService_ContainerUsername_1d4f37084ccf4e55b355cd600859249a }}
+        password: ${{ secrets.AzureAppService_ContainerPassword_c5c86284a04045c49871fb21f4d37a90 }}
 
     - name: Build and push container image to registry
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: truenorth.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_7ee5ed7e8dc64ed2902afe19ad7eb73f }}/api/main:${{ github.sha }}
+        tags: truenorth.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_1d4f37084ccf4e55b355cd600859249a }}/truenorth/api/main:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
@@ -47,5 +47,5 @@ jobs:
       with:
         app-name: 'truenorth-api'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_d5a22c89f34e42af83091ef0886cd872 }}
-        images: 'truenorth.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_7ee5ed7e8dc64ed2902afe19ad7eb73f }}/api/main:${{ github.sha }}'
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_de47e8eb33c7433998adac4bd81d5c43 }}
+        images: 'truenorth.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_1d4f37084ccf4e55b355cd600859249a }}/truenorth/api/main:${{ github.sha }}'
