@@ -12,6 +12,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
       url: configService.get<string>('TYPEORM_URL', 'cockroachdb'),
       ssl: true,
       autoLoadEntities: true,
+      logging: true,
     };
   }
 }

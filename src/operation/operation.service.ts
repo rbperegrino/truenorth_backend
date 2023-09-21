@@ -1,7 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { CreateOperationDto } from './dto/create-operation.dto';
-import { UpdateOperationDto } from './dto/update-operation.dto';
 import { Operation, OperationEnum } from './entities/operation.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -26,23 +25,16 @@ export class OperationService
   }
 
   create(createOperationDto: CreateOperationDto) {
-    return 'This action adds a new operation';
+    try {
+      const operation = this.operationRepository.create(createOperationDto);
+      return operation.save();
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   findAll() {
     return this.operationRepository.find({ order: { type: 'ASC' } });
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} operation`;
-  }
-
-  update(id: number, updateOperationDto: UpdateOperationDto) {
-    return `This action updates a #${id} operation`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} operation`;
   }
 
   findOneByType(type: OperationEnum) {
@@ -51,20 +43,27 @@ export class OperationService
 
   async [OperationEnum.ADDITION](args) {
     const [a, b] = args;
-    return a + b;
+
+    try {
+      const numberA = Number(a);
+      const numberB = Number(b);
+      return numberA + numberB;
+    } catch (e) {
+      throw new BadRequestException();
+    }
   }
 
-  async [OperationEnum.SUBTRACTION](args) {
+  async [OperationEnum.SUBTRACTION](args: number[]) {
     const [a, b] = args;
     return a - b;
   }
 
-  async [OperationEnum.MULTIPLICATION](args) {
+  async [OperationEnum.MULTIPLICATION](args: number[]) {
     const [a, b] = args;
     return a * b;
   }
 
-  async [OperationEnum.DIVISION](args) {
+  async [OperationEnum.DIVISION](args: number[]) {
     const [a, b] = args;
     return a / b;
   }
