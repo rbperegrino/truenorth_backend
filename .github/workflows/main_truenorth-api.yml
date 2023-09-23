@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy Node.js app to Azure Web App - truenorth-api
+name: Build and deploy Node.js app to Azure Web App
 
 on:
   push:
@@ -58,5 +58,5 @@ jobs:
         with:
           app-name: 'tnchallenge'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_1EC535BCBDFC479282C9CAC8275B8EF1 }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           package: .
