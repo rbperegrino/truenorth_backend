@@ -18,6 +18,8 @@ RUN npm install
 
 COPY . .
 
+EXPOSE 3001
+
 RUN npm run start:debug
 
 FROM --platform=linux/x86_64 node:16.15-alpine as production
@@ -44,4 +46,6 @@ COPY . .
 
 RUN npm run build
 
-CMD ["node", "dist/main"]
+EXPOSE 3001
+
+CMD ["node", "dist/main", "--host", "0.0.0.0"]
