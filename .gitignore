@@ -37,3 +37,4 @@ lerna-debug.log*
 test/coverage
 
 .env
+client

@@ -1,6 +1,7 @@
 version: '3.8'
 services:
   main:
+    platform: linux/x86_64
     container_name: main
     build:
       context: .
@@ -9,9 +10,8 @@ services:
       - .:/usr/src/app
       - /usr/src/app/node_modules
     ports:
-      - ${SERVER_PORT}:${SERVER_PORT}
+      - ${PORT}:${PORT}
       - 9229:9229
-    command: npm run start:debug
     env_file:
       - .env
 

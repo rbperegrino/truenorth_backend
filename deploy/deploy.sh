@@ -1,11 +1,9 @@
-branch=$(git rev-parse --abbrev-ref HEAD)
-commit=$(git rev-parse --short HEAD)
+rm -r ./client
+cp -r ../truenorth_frontend/build ./client
 
 
-docker build . --platform=linux/amd64  --tag truenorth.azurecr.io/api/$branch:latest --tag truenorth.azurecr.io/api/$branch:$commit   --target production
+docker build . --platform linux/amd64  --tag idemregistry.azurecr.io/truenorth --tag latest --target production
 
-az acr login --name truenorth
+az acr login --name idemregistry -u idemregistry -p bX/YGzpCV+xvM6Ws0TFtsHYkOiAEcz+SLLsyQcgbZw+ACRAzC0VT
 
-docker push -a truenorth.azurecr.io/api/$(echo $branch)
-
-
+docker push idemregistry.azurecr.io/truenorth:latest

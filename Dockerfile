@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 node:16.14-alpine As development
+FROM --platform=linux/x86_64 node:16.15-alpine As development
 
 WORKDIR /usr/src/app
 
@@ -20,7 +20,7 @@ COPY . .
 
 RUN npm run start:debug
 
-FROM --platform=linux/amd64 node:16.14-alpine as production
+FROM --platform=linux/x86_64 node:16.15-alpine as production
 
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
@@ -42,6 +42,6 @@ RUN npm install --only=production
 
 COPY . .
 
-RUN npm run prestart:prod
+RUN npm run build
 
 CMD ["node", "dist/main"]

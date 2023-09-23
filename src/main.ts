@@ -13,7 +13,7 @@ async function bootstrap() {
     { snapshot: true },
   );
 
-  const port = +process.env.SERVER_PORT || 3001;
+  const port = +process.env.PORT || 3001;
 
   const options = new DocumentBuilder()
     .setTitle('TrueNorth')
@@ -28,6 +28,6 @@ async function bootstrap() {
   app.enableCors();
   await app.listen(port);
 
-  console.log('App is running on port:', port);
+  console.log('App is running on port test:', port);
 }
 bootstrap();
