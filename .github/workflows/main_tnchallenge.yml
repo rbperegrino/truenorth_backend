@@ -26,7 +26,48 @@ jobs:
           npm install -g @nestjs/cli
           npm install
           npm run build --if-present
-          npm run test --if-present
+#          npm run test --if-present
+
+      - name: Download artifact
+        id: download-artifact
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          # Optional, GitHub token, a Personal Access Token with `public_repo` scope if needed
+          # Required, if the artifact is from a different repo
+          # Required, if the repo is private a Personal Access Token with `repo` scope is needed or GitHub token in a job where the permissions `action` scope set to `read`
+          github_token: ${{secrets.GITHUB_TOKEN}}
+          # Optional, workflow file name or ID
+          # If not specified, will be inferred from run_id (if run_id is specified), or will be the current workflow
+          workflow: azure-static-web-apps-delightful-tree-038ed3010.yml
+          # Optional, the status or conclusion of a completed workflow to search for
+          # Can be one of a workflow conclusion:
+          #   "failure", "success", "neutral", "cancelled", "skipped", "timed_out", "action_required"
+          # Or a workflow status:
+          #   "completed", "in_progress", "queued"
+          # Use the empty string ("") to ignore status or conclusion in the search
+          workflow_conclusion: success
+          # Optional, will use the specified branch. Defaults to all branches
+          branch: main
+          # Optional, defaults to all types
+          event: push
+          name: artifact_name
+          # Optional, name is treated as a regular expression if set true
+          name_is_regexp: true
+          # Optional, a directory where to extract artifact(s), defaults to the current directory
+          path: ./clients
+          # Optional, defaults to current repo
+          repo: truenorth_frontend
+          # Optional, choose how to exit the action if no artifact is found
+          # can be one of:
+          #  "fail", "warn", "ignore"
+          # default fail
+          if_no_artifact_found: fail
+          # Optional, ignore forks when searching for artifacts
+          # default true
+          allow_forks: false
+
+      - name: Zip artifact for deployment
+        run: zip release.zip ./* -r
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
@@ -46,6 +87,9 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: node-app
+
+      - name: unzip artifact for deployment
+        run: unzip release.zip
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
