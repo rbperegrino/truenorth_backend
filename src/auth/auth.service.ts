@@ -56,7 +56,7 @@ export class AuthService {
 
   async createJwtPayload(user): Promise<UserLoginResponseDTO> {
     const data: JwtPayload = {
-      email: user.email,
+      email: user.username,
     };
 
     const jwt = this.jwtService.sign(data);
