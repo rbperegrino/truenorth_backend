@@ -21,36 +21,6 @@ jobs:
         with:
           node-version: '18.x'
 
-      - name: Download artifact
-        id: download-artifact
-        uses: dawidd6/action-download-artifact@v2
-        with:
-          # Optional, GitHub token, a Personal Access Token with `public_repo` scope if needed
-          # Required, if the artifact is from a different repo
-          # Required, if the repo is private a Personal Access Token with `repo` scope is needed or GitHub token in a job where the permissions `action` scope set to `read`
-          github_token: ${{secrets.GITHUB_TOKEN}}
-          # Optional, workflow file name or ID
-          # If not specified, will be inferred from run_id (if run_id is specified), or will be the current workflow
-          workflow: azure-static-web-apps-delightful-tree-038ed3010.yml
-          # Optional, the status or conclusion of a completed workflow to search for
-          # Can be one of a workflow conclusion:
-          #   "failure", "success", "neutral", "cancelled", "skipped", "timed_out", "action_required"
-          # Or a workflow status:
-          #   "completed", "in_progress", "queued"
-          # Use the empty string ("") to ignore status or conclusion in the search
-          workflow_conclusion: success
-          # Optional, will use the specified branch. Defaults to all branches
-          branch: main
-          # Optional, defaults to all types
-          event: push
-          path: ./clients
-          # Optional, defaults to current repo
-          repo: rbperegrino/truenorth_frontend
-          # Optional, choose how to exit the action if no artifact is found
-          # can be one of:
-          #  "fail", "warn", "ignore"
-          # default fail
-          if_no_artifact_found: fail
 
       - name: npm install, build, and test
         run: |
