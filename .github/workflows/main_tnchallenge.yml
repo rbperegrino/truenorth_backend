@@ -56,7 +56,7 @@ jobs:
           # Optional, a directory where to extract artifact(s), defaults to the current directory
           path: ./clients
           # Optional, defaults to current repo
-          repo: truenorth_frontend
+          repo: rbperegrino/truenorth_frontend
           # Optional, choose how to exit the action if no artifact is found
           # can be one of:
           #  "fail", "warn", "ignore"
