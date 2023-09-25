@@ -50,10 +50,6 @@ jobs:
           branch: main
           # Optional, defaults to all types
           event: push
-          name: artifact_name
-          # Optional, name is treated as a regular expression if set true
-          name_is_regexp: true
-          # Optional, a directory where to extract artifact(s), defaults to the current directory
           path: ./clients
           # Optional, defaults to current repo
           repo: rbperegrino/truenorth_frontend
